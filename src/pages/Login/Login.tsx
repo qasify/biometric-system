@@ -29,6 +29,12 @@ const BiometricRegistration: React.FC = () => {
     navigate("/home");
   };
 
+  // Test Credentials
+  // 05684082769
+  // 14/02/1983
+  // 21 979997000
+  // email@email.com.br
+
   return (
     <div className="w-full min-h-[100vh] flex items-center justify-center bg-background-light">
       <div className="max-w-xl mx-auto mt-10 p-8 rounded-lg shadow-lg bg-white">
