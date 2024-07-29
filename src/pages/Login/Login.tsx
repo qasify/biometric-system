@@ -59,15 +59,16 @@ const BiometricRegistration: React.FC = () => {
     const emailValue = email;
 
     const cpfVaild = validateCpf(cpfValue);
+    const birthdateValid = birthDate.length > 0;
     const phoneValid = validatePhone(phoneValue);
     const emailValid = validateEmail(emailValue);
 
-    if (!cpfVaild || !phoneValid || !emailValid) {
+    if (!cpfVaild || !phoneValid || !emailValid || !birthdateValid) {
       setErrors({
         cpf: cpfVaild ? null : constants.INVALID_CPF,
         phone: phoneValid ? null : constants.INVALID_PHONE,
         email: emailValid ? null : constants.INVALID_EMAIL,
-        birthDate: null,
+        birthDate: birthdateValid ? null : constants.INVALID_BIRTHDATE,
       });
       return;
     }

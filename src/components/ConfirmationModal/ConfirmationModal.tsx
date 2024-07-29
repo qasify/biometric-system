@@ -22,9 +22,11 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       >
         <p className="text-[16px] p-2">{message}</p>
         <div className="flex justify-end gap-2">
-          <Button onClick={onCancel} variant="bordered">
-            Cancel
-          </Button>
+          {onCancel && (
+            <Button onClick={onCancel} variant="bordered">
+              Cancel
+            </Button>
+          )}
           <Button onClick={onConfirm}>Confirm</Button>
         </div>
       </div>
