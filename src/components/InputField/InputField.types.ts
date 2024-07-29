@@ -4,4 +4,6 @@ export interface InputFieldProps {
   placeholder?: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string | null;
+  pattern?: string;
 }

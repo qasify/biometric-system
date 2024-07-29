@@ -2,6 +2,9 @@
 import React, { useState } from "react";
 import { Button, InputField } from "../../components";
 import { useNavigate } from "react-router-dom";
+import { formatCpf, formatPhone, validateCpf } from "./helpers";
+import { LogInErrors } from "./types";
+import constants from "./constants";
 
 const BiometricRegistration: React.FC = () => {
   const navigate = useNavigate();
@@ -10,20 +13,62 @@ const BiometricRegistration: React.FC = () => {
   const [birthDate, setBirthDate] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [errors, setErrors] = useState<LogInErrors | null>(null);
 
-  const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setCpf(e.target.value);
-  const handleBirthDateChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrors((prev) => ({ ...prev, cpf: null } as LogInErrors));
+    setCpf(formatCpf(e.target.value));
+  };
+
+  const handleBirthDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrors((prev) => ({ ...prev, birthDate: null } as LogInErrors));
     setBirthDate(e.target.value);
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) =>
-    setPhone(e.target.value);
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrors((prev) => ({ ...prev, phone: null } as LogInErrors));
+    setPhone(formatPhone(e.target.value));
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setErrors((prev) => ({ ...prev, email: null } as LogInErrors));
     setEmail(e.target.value);
+  };
 
   const handleSubmit = (e?: React.FormEvent) => {
     e?.preventDefault();
     // Handle form submission logic here
     console.log({ cpf, birthDate, phone, email });
+
+    const cpfValue = cpf.replace(/\D/g, "");
+    // const birthdateValue = formatDateToISO(
+    //   document.getElementById("birthdate").value
+    // );
+    const phoneValue = phone.replace(/\D/g, "");
+    const emailValue = email;
+
+    const cpfVaild = validateCpf(cpfValue);
+    const phoneValid = validateCpf(phoneValue);
+    const emailValid = validateCpf(emailValue);
+
+    console.log(
+      "cpfVaild:",
+      cpfVaild,
+      " phoneValid:",
+      phoneValid,
+      " emailValid:",
+      emailValid
+    );
+
+    // if (!cpfVaild || !phoneValid || !emailValid) {
+    //   setErrors({
+    //     cpf: cpfVaild ? null : constants.INVALID_CPF,
+    //     phone: phoneValid ? null : constants.INVALID_PHONE,
+    //     email: emailValid ? null : constants.INVALID_EMAIL,
+    //     birthDate: null,
+    //   });
+    //   return;
+    // }
 
     // navigate if authenticated
     navigate("/home");
@@ -53,6 +98,8 @@ const BiometricRegistration: React.FC = () => {
             placeholder="Enter CPF"
             value={cpf}
             onChange={handleCpfChange}
+            error={errors?.cpf}
+            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
           />
           <InputField
             label="Data de Nascimento:"
@@ -60,6 +107,7 @@ const BiometricRegistration: React.FC = () => {
             placeholder="mm/dd/yyyy"
             value={birthDate}
             onChange={handleBirthDateChange}
+            error={errors?.birthDate}
           />
           <InputField
             label="Celular:"
@@ -67,6 +115,8 @@ const BiometricRegistration: React.FC = () => {
             placeholder="Enter phone number"
             value={phone}
             onChange={handlePhoneChange}
+            error={errors?.phone}
+            pattern="\(\d{2}\) \d{5}-\d{4}"
           />
           <InputField
             label="Email:"
@@ -74,6 +124,7 @@ const BiometricRegistration: React.FC = () => {
             placeholder="Enter email"
             value={email}
             onChange={handleEmailChange}
+            error={errors?.email}
           />
           <div className="flex justify-center mt-6">
             <Button onClick={handleSubmit}>Enviar</Button>

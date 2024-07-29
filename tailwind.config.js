@@ -25,6 +25,8 @@ module.exports = {
         dark: "rgba(255, 255, 255, 0.1)",
       },
 
+      error: "#fc2c03",
+
       primary: {
         light: "#00C853",
       },

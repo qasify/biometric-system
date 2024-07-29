@@ -8,6 +8,8 @@ const InputField: React.FC<InputFieldProps> = ({
   placeholder,
   value,
   onChange,
+  error,
+  pattern,
 }) => {
   return (
     <div className="mb-4">
@@ -19,7 +21,10 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className="shadow appearance-none border border-gray-1 rounded w-full py-2 px-3 text-text-light leading-tight focus:outline-none focus:shadow-outline"
+        className={`shadow appearance-none border rounded w-full py-2 px-3 text-text-light leading-tight focus:outline-none focus:shadow-outline ${
+          error ? "border-error" : "border-gray-1"
+        }`}
+        pattern={pattern}
       />
     </div>
   );
