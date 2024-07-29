@@ -1,5 +1,4 @@
 const validateCpf = (cpf: string) => {
-  console.log("checking cpf", cpf);
   if (cpf.length !== 11) return false;
   let sum = 0;
   let remainder;

@@ -2,7 +2,13 @@
 import React, { useState } from "react";
 import { Button, InputField } from "../../components";
 import { useNavigate } from "react-router-dom";
-import { formatCpf, formatPhone, validateCpf } from "./helpers";
+import {
+  formatCpf,
+  formatPhone,
+  validateCpf,
+  validateEmail,
+  validatePhone,
+} from "./helpers";
 import { LogInErrors } from "./types";
 import constants from "./constants";
 
@@ -48,27 +54,18 @@ const BiometricRegistration: React.FC = () => {
     const emailValue = email;
 
     const cpfVaild = validateCpf(cpfValue);
-    const phoneValid = validateCpf(phoneValue);
-    const emailValid = validateCpf(emailValue);
+    const phoneValid = validatePhone(phoneValue);
+    const emailValid = validateEmail(emailValue);
 
-    console.log(
-      "cpfVaild:",
-      cpfVaild,
-      " phoneValid:",
-      phoneValid,
-      " emailValid:",
-      emailValid
-    );
-
-    // if (!cpfVaild || !phoneValid || !emailValid) {
-    //   setErrors({
-    //     cpf: cpfVaild ? null : constants.INVALID_CPF,
-    //     phone: phoneValid ? null : constants.INVALID_PHONE,
-    //     email: emailValid ? null : constants.INVALID_EMAIL,
-    //     birthDate: null,
-    //   });
-    //   return;
-    // }
+    if (!cpfVaild || !phoneValid || !emailValid) {
+      setErrors({
+        cpf: cpfVaild ? null : constants.INVALID_CPF,
+        phone: phoneValid ? null : constants.INVALID_PHONE,
+        email: emailValid ? null : constants.INVALID_EMAIL,
+        birthDate: null,
+      });
+      return;
+    }
 
     // navigate if authenticated
     navigate("/home");
