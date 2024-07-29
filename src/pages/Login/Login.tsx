@@ -111,7 +111,7 @@ const BiometricRegistration: React.FC = () => {
   // 05684082769
   // 14/02/1983
   // 21979997000
-  //
+  // email@email.com.br
 
   return (
     <>

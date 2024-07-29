@@ -73,7 +73,7 @@ const Home: React.FC = () => {
               <img src={url} alt="Screenshot" />
             </div>
           )}
-          <div className="absolute bottom-0 flex w-full justify-center items-center gap-2 py-4">
+          <div className="absolute bottom-0 flex flex-wrap w-full justify-center items-center gap-2 py-4">
             {url ? (
               <>
                 <Button
