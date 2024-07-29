@@ -15,6 +15,11 @@ module.exports = {
         "white-transparent": "rgba(255, 255, 255, 0)",
       },
 
+      hover: {
+        dark: "#363232",
+        light: "#F4F4F4",
+      },
+
       border: {
         light: "rgba(0, 0, 0, 0.1)",
         dark: "rgba(255, 255, 255, 0.1)",
