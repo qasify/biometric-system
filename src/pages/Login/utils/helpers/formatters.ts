@@ -23,8 +23,10 @@ const formatPhone = (phone: string): string => {
   return value;
 };
 
-const formatDateToISO = (date: string) => {
-  const isoString = new Date(date).toISOString();
+const formatDateToISO = (date: string | null) => {
+  const isoString = date?.length
+    ? new Date(date).toISOString()
+    : new Date().toISOString();
   return isoString;
 };
 

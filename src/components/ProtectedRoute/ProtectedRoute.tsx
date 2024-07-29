@@ -5,9 +5,9 @@ import { useAuth } from "../../authentication/AuthProvider";
 const ProtectedRoute: React.FC = () => {
   const { authenticatedUser } = useAuth();
 
-  if (!authenticatedUser) {
-    return <Navigate to="/login" replace />;
-  }
+  // if (!authenticatedUser) {
+  //   return <Navigate to="/login" replace />;
+  // }
 
   return <Outlet />;
 };

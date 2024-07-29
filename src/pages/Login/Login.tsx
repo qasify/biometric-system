@@ -54,7 +54,7 @@ const BiometricRegistration: React.FC = () => {
     e?.preventDefault();
 
     const cpfValue = cpf.replace(/\D/g, "");
-    const birthdateValue = formatDateToISO(birthDate);
+    const birthdateValue = formatDateToISO(birthDate || null);
     const phoneValue = phone.replace(/\D/g, "");
     const emailValue = email;
 
@@ -100,7 +100,6 @@ const BiometricRegistration: React.FC = () => {
   };
 
   const handleConfirm = () => {
-    handleclose();
     setConfirmationMessage(null);
     navigate("/home");
   };

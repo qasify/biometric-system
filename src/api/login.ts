@@ -25,8 +25,6 @@ export const login = async (
     });
 
     const camelCaseData = keysToCamelCase(response?.data);
-    console.log(camelCaseData);
-
     if (camelCaseData?.nome) {
       return response?.data;
     }

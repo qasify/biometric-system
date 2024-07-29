@@ -6,12 +6,10 @@ import { useNavigate } from "react-router-dom";
 const Home = () => {
   const videoConstraints = {
     facingMode: "user",
-    width: window.innerWidth - 16, // off setting the padding
+    width: window.innerHeight - 16, // off setting the padding
     height: window.innerHeight - 16, // off setting the padding
     // aspectRatio: 16 / 9,
   };
-
-  console.log(window.innerHeight);
 
   const navigate = useNavigate();
   const webcamRef = useRef<Webcam>(null);
@@ -59,13 +57,13 @@ const Home = () => {
       <div className="absolute bottom-0 flex w-full justify-center items-center gap-2 py-4">
         {url ? (
           <>
-            <Button onClick={handleConfirm}>Confirm</Button>
-            <Button onClick={handleRefresh}>Try Again</Button>
+            <Button onClick={handleConfirm}>Confirmar</Button>
+            <Button onClick={handleRefresh}>Tentar Novamente</Button>
           </>
         ) : (
-          <Button onClick={capturePhoto}>Capture</Button>
+          <Button onClick={capturePhoto}>Foto</Button>
         )}
-        <Button onClick={handleCancel}>Cancel</Button>
+        <Button onClick={handleCancel}>Cancelar</Button>
       </div>
     </div>
   );
