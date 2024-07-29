@@ -12,10 +12,8 @@ const InputField: React.FC<InputFieldProps> = ({
   pattern,
 }) => {
   return (
-    <div className="mb-4">
-      <label className="block text-text-light text-sm font-bold mb-2">
-        {label}
-      </label>
+    <div className="flex flex-col gap-1 relative">
+      <label className="block text-text-light text-sm font-bold">{label}</label>
       <input
         type={type}
         placeholder={placeholder}
@@ -26,6 +24,11 @@ const InputField: React.FC<InputFieldProps> = ({
         }`}
         pattern={pattern}
       />
+      {error ? (
+        <p className="absolute text-error text-[12px] bottom-[-16px] ">
+          {error}
+        </p>
+      ) : null}
     </div>
   );
 };

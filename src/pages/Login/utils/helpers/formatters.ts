@@ -23,4 +23,15 @@ const formatPhone = (phone: string): string => {
   return value;
 };
 
-export { formatCpf, formatPhone };
+const formatDateToISO = (date: string) => {
+  const isoString = new Date(date).toISOString();
+  return isoString;
+};
+
+const toCamelCase = (str: string) => {
+  return str.replace(/([-_][a-z])/gi, (match) => {
+    return match.toUpperCase().replace("-", "").replace("_", "");
+  });
+};
+
+export { formatCpf, formatPhone, formatDateToISO, toCamelCase };

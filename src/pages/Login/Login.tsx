@@ -4,13 +4,16 @@ import { Button, InputField } from "../../components";
 import { useNavigate } from "react-router-dom";
 import {
   formatCpf,
+  formatDateToISO,
   formatPhone,
   validateCpf,
   validateEmail,
   validatePhone,
-} from "./helpers";
+} from "./utils/helpers";
 import { LogInErrors } from "./types";
-import constants from "./constants";
+import constants from "./utils/constants";
+import { login } from "../../api";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 const BiometricRegistration: React.FC = () => {
   const navigate = useNavigate();
@@ -20,6 +23,9 @@ const BiometricRegistration: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState<LogInErrors | null>(null);
+  const [confirmationMessage, setConfirmationMessage] = useState<string | null>(
+    null
+  );
 
   const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setErrors((prev) => ({ ...prev, cpf: null } as LogInErrors));
@@ -41,15 +47,11 @@ const BiometricRegistration: React.FC = () => {
     setEmail(e.target.value);
   };
 
-  const handleSubmit = (e?: React.FormEvent) => {
+  const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault();
-    // Handle form submission logic here
-    console.log({ cpf, birthDate, phone, email });
 
     const cpfValue = cpf.replace(/\D/g, "");
-    // const birthdateValue = formatDateToISO(
-    //   document.getElementById("birthdate").value
-    // );
+    const birthdateValue = formatDateToISO(birthDate);
     const phoneValue = phone.replace(/\D/g, "");
     const emailValue = email;
 
@@ -67,68 +69,98 @@ const BiometricRegistration: React.FC = () => {
       return;
     }
 
-    // navigate if authenticated
+    const response = await login({
+      cpf: cpfValue,
+      birthDate: birthdateValue,
+    });
+
+    // if authenticated
+    if (response) {
+      setConfirmationMessage(
+        `Olá ${response?.nome}, você confirma que é você mesmo?`
+      );
+    }
+  };
+
+  const handleclose = () => {
+    setConfirmationMessage(null);
+  };
+
+  const handleConfirm = () => {
+    handleclose();
+    setConfirmationMessage(null);
     navigate("/home");
   };
 
   // Test Credentials
   // 05684082769
   // 14/02/1983
-  // 21 979997000
+  // 21979997000
   // email@email.com.br
 
   return (
-    <div className="w-full min-h-[100vh] flex items-center justify-center bg-background-light">
-      <div className="max-w-xl mx-auto mt-10 p-8 rounded-lg shadow-lg bg-white">
-        <img
-          src="/assets/images/logo_angra.png"
-          alt="Logo"
-          className="mx-auto mb-4"
-        />
-        <h1 className="text-center text-2xl font-bold mb-4">
-          CADASTRO BIOMÉTRICO
-        </h1>
-        <form onSubmit={handleSubmit}>
-          <InputField
-            label="CPF:"
-            type="text"
-            placeholder="Enter CPF"
-            value={cpf}
-            onChange={handleCpfChange}
-            error={errors?.cpf}
-            pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+    <>
+      <div className="w-full min-h-[100vh] flex items-center justify-center bg-background-light p-2">
+        <div className="flex flex-col items-center justify-center gap-4 max-w-xl mx-auto mt-10 p-8 rounded-lg shadow-lg bg-white w-[512px]">
+          <img
+            src="/assets/images/logo_angra.png"
+            alt="Logo"
+            className="mx-auto lg:h-[300px]"
           />
-          <InputField
-            label="Data de Nascimento:"
-            type="date"
-            placeholder="mm/dd/yyyy"
-            value={birthDate}
-            onChange={handleBirthDateChange}
-            error={errors?.birthDate}
-          />
-          <InputField
-            label="Celular:"
-            type="text"
-            placeholder="Enter phone number"
-            value={phone}
-            onChange={handlePhoneChange}
-            error={errors?.phone}
-            pattern="\(\d{2}\) \d{5}-\d{4}"
-          />
-          <InputField
-            label="Email:"
-            type="email"
-            placeholder="Enter email"
-            value={email}
-            onChange={handleEmailChange}
-            error={errors?.email}
-          />
-          <div className="flex justify-center mt-6">
-            <Button onClick={handleSubmit}>Enviar</Button>
-          </div>
-        </form>
+          <h1 className="text-center text-2xl font-bold">
+            CADASTRO BIOMÉTRICO
+          </h1>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
+            <InputField
+              label="CPF:"
+              type="text"
+              placeholder="Enter CPF"
+              value={cpf}
+              onChange={handleCpfChange}
+              error={errors?.cpf}
+              pattern="\d{3}\.\d{3}\.\d{3}-\d{2}"
+            />
+            <InputField
+              label="Data de Nascimento:"
+              type="date"
+              placeholder="mm/dd/yyyy"
+              value={birthDate}
+              onChange={handleBirthDateChange}
+              error={errors?.birthDate}
+            />
+            <InputField
+              label="Celular:"
+              type="text"
+              placeholder="Enter phone number"
+              value={phone}
+              onChange={handlePhoneChange}
+              error={errors?.phone}
+              pattern="\(\d{2}\) \d{5}-\d{4}"
+            />
+            <InputField
+              label="Email:"
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={handleEmailChange}
+              error={errors?.email}
+            />
+            <div className="flex justify-center mt-4 w-full">
+              <Button onClick={handleSubmit} className="!w-full">
+                Enviar
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+      <ConfirmationModal
+        isVisible={!!confirmationMessage}
+        onCancel={handleclose}
+        onClose={handleclose}
+        onConfirm={handleConfirm}
+        message={confirmationMessage || ""}
+      />
+    </>
   );
 };
 
