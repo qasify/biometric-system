@@ -11,7 +11,7 @@ module.exports = {
 
       background: {
         dark: "#15191C",
-        light: "#FFFFFF",
+        light: "#F4F4F4",
         "white-transparent": "rgba(255, 255, 255, 0)",
       },
 
@@ -88,7 +88,11 @@ module.exports = {
       },
 
       // Blue
-      "blue-1": "#42A5F5",
+      "blue-1": {
+        DEFAULT: "#42A5F5",
+        light: "#42A5F5",
+        dark: "#007BFF",
+      },
       "blue-2": {
         DEFAULT: "#BBDFFB",
         light: "#BBDFFB",
