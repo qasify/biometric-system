@@ -1,8 +1,11 @@
 // src/components/BiometricRegistration.tsx
 import React, { useState } from "react";
 import { Button, InputField } from "../../components";
+import { useNavigate } from "react-router-dom";
 
 const BiometricRegistration: React.FC = () => {
+  const navigate = useNavigate();
+
   const [cpf, setCpf] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [phone, setPhone] = useState("");
@@ -21,6 +24,9 @@ const BiometricRegistration: React.FC = () => {
     e?.preventDefault();
     // Handle form submission logic here
     console.log({ cpf, birthDate, phone, email });
+
+    // navigate if authenticated
+    navigate("/home");
   };
 
   return (
