@@ -20,7 +20,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         className="flex flex-col gap-6 bg-white p-3 rounded-lg shadow-lg max-w-md w-full"
         onClick={(e) => e.stopPropagation()} // Prevent click from closing the modal
       >
-        <p className="text-[20px]">{message}</p>
+        <p className="text-[16px] p-2">{message}</p>
         <div className="flex justify-end gap-2">
           <Button onClick={onCancel} variant="bordered">
             Cancel

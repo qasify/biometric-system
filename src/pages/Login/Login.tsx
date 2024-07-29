@@ -14,9 +14,12 @@ import { LogInErrors } from "./types";
 import constants from "./utils/constants";
 import { login } from "../../api";
 import ConfirmationModal from "../../components/ConfirmationModal";
+import { useAuth } from "../../authentication/AuthProvider";
 
 const BiometricRegistration: React.FC = () => {
   const navigate = useNavigate();
+
+  const { setAuthenticatedUser } = useAuth();
 
   const [cpf, setCpf] = useState("");
   const [birthDate, setBirthDate] = useState("");
@@ -76,6 +79,15 @@ const BiometricRegistration: React.FC = () => {
 
     // if authenticated
     if (response) {
+      setAuthenticatedUser({
+        cpf: cpfValue,
+        id: response.id,
+        dataDeNascimento: birthdateValue,
+        phone: phoneValue,
+        email: emailValue,
+        nome: response.nome,
+        token: response.token,
+      });
       setConfirmationMessage(
         `Olá ${response?.nome}, você confirma que é você mesmo?`
       );
@@ -83,6 +95,7 @@ const BiometricRegistration: React.FC = () => {
   };
 
   const handleclose = () => {
+    setAuthenticatedUser(null);
     setConfirmationMessage(null);
   };
 
