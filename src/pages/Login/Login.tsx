@@ -29,6 +29,7 @@ const BiometricRegistration: React.FC = () => {
   const [confirmationMessage, setConfirmationMessage] = useState<string | null>(
     null
   );
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const handleCpfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setErrors((prev) => ({ ...prev, cpf: null } as LogInErrors));
@@ -72,7 +73,7 @@ const BiometricRegistration: React.FC = () => {
       });
       return;
     }
-
+    setIsLoading(true);
     const response = await login({
       cpf: cpfValue,
       birthDate: birthdateValue,
@@ -89,6 +90,7 @@ const BiometricRegistration: React.FC = () => {
         nome: response.nome,
         token: response.token,
       });
+      setIsLoading(false);
       setConfirmationMessage(
         `Olá ${response?.nome}, você confirma que é você mesmo?`
       );
@@ -109,7 +111,7 @@ const BiometricRegistration: React.FC = () => {
   // 05684082769
   // 14/02/1983
   // 21979997000
-  // email@email.com.br
+  //
 
   return (
     <>
@@ -159,7 +161,12 @@ const BiometricRegistration: React.FC = () => {
               error={errors?.email}
             />
             <div className="flex justify-center mt-4 w-full">
-              <Button onClick={handleSubmit} className="!w-full">
+              <Button
+                onClick={handleSubmit}
+                className="!w-full"
+                isLoading={isLoading}
+                disabled={isLoading}
+              >
                 Enviar
               </Button>
             </div>

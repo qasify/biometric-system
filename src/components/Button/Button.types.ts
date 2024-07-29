@@ -1,3 +1,4 @@
 export interface ButtonProps {
-  variant?: "bordered" | "filled";
+  variant?: "bordered" | "filled" | "disabled";
+  isLoading?: boolean;
 }
