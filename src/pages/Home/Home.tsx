@@ -8,7 +8,7 @@ const Home = () => {
     facingMode: "user",
     width: window.innerWidth - 16, // off setting the padding
     height: window.innerHeight - 16, // off setting the padding
-    aspectRatio: 16 / 9,
+    // aspectRatio: 16 / 9,
   };
 
   console.log(window.innerHeight);
