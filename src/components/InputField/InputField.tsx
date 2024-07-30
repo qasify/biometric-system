@@ -19,7 +19,7 @@ const InputField: React.FC<InputFieldProps> = ({
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        className={`shadow appearance-none border rounded w-full py-2 px-3 text-text-light leading-tight focus:outline-none focus:shadow-outline ${
+        className={`shadow appearance-none border rounded w-full py-2 px-3 text-text-light leading-tight focus:outline-none focus:shadow-outline h-10 ${
           error ? "border-error" : "border-gray-1"
         }`}
         pattern={pattern}
