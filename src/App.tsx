@@ -3,12 +3,18 @@ import Login from "./pages/Login";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
-import { Button } from "./components";
-import useInstallPrompt from "./hooks/useInstallPrompt";
+import InstallPromptPopup from "./components/InstallPromptPopup/InstallPromptPopup";
 
 const App: React.FC = () => {
-  const promptInstall = useInstallPrompt();
 
+  // useEffect(() => {
+  //   console.log(isInstalled)
+  //   const timeout = setTimeout(() => {
+  //     setShowInstall(false)
+  //   }, 5000)
+
+  //   return clearTimeout(timeout)
+  // }, [isInstalled])
   return (
     <div className="flex min-h-screen w-full overflow-y-auto bg-background-light">
       <Routes>
@@ -18,7 +24,7 @@ const App: React.FC = () => {
         </Route>
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
-      <Button onClick={()=>promptInstall()} className="fixed top-2 right-2 h-10">Install</Button>
+      <InstallPromptPopup />
     </div>
   );
 };
