@@ -58,12 +58,12 @@ const Home: React.FC = () => {
 
     return (
       <>
-        {" "}
-        <div className="flex flex-col items-center justify-center p-2">
+        <div className="w-full flex flex-col items-center justify-center p-2">
           {!url ? (
             <Webcam
               ref={webcamRef}
               audio={false}
+              mirrored
               screenshotFormat="image/jpeg"
               videoConstraints={videoConstraints}
               onUserMedia={onUserMedia}

@@ -115,12 +115,12 @@ const BiometricRegistration: React.FC = () => {
 
   return (
     <>
-      <div className="w-full min-h-[100vh] flex items-center justify-center bg-background-light p-2">
-        <div className="flex flex-col items-center justify-center gap-4 max-w-xl mx-auto mt-10 p-8 rounded-lg shadow-lg bg-white w-[512px]">
+      <div className="w-full flex items-center justify-center p-2 self-center justify-self-center">
+        <div className="flex flex-col items-center justify-center gap-4 mx-auto mt-10 p-8 rounded-lg shadow-lg bg-white min-w-[300px] w-[400px] lg:w-[450px] ">
           <img
             src="/assets/images/logo_angra.png"
             alt="Logo"
-            className="mx-auto lg:h-[300px]"
+            className="mx-auto max-h-[130px]"
           />
           <h1 className="text-center text-2xl font-bold">
             CADASTRO BIOMÉTRICO
@@ -128,7 +128,7 @@ const BiometricRegistration: React.FC = () => {
           <form onSubmit={handleSubmit} className="flex flex-col gap-4 w-full">
             <InputField
               label="CPF:"
-              type="text"
+              type="tel"
               placeholder="Enter CPF"
               value={cpf}
               onChange={handleCpfChange}
@@ -145,7 +145,7 @@ const BiometricRegistration: React.FC = () => {
             />
             <InputField
               label="Celular:"
-              type="text"
+              type="tel"
               placeholder="Enter phone number"
               value={phone}
               onChange={handlePhoneChange}

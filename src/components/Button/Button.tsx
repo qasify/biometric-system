@@ -32,7 +32,7 @@ const Button: React.FC<
       {children}
       {isLoading && (
         <div
-          className={`absolute right-1 loader border-t-2 rounded-full border-gray-1 animate-spin aspect-square w-8 flex justify-center items-center text-yellow-700 ${
+          className={`absolute right-1 loader border-t-[3px] rounded-full border-gray-3 animate-spin aspect-square w-8 flex justify-center items-center ${
             disabled ? "bg-hover-dark" : "bg-black"
           }`}
         />

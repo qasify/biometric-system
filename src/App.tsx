@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 
 const App: React.FC = () => {
   return (
-    <div className="min-h-screen w-full overflow-y-auto">
+    <div className="flex min-h-screen w-full overflow-y-auto bg-background-light">
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>
