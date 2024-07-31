@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'v1'; // Incrementar a versão conforme necessário
+const CACHE_NAME = 'v2'; // Incrementar a versão conforme necessário
 
 self.addEventListener("install", (event) => {
 //   self.skipWaiting(); // Força o Service Worker a ativar imediatamente após a instalação
