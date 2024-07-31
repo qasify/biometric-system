@@ -6,15 +6,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import InstallPromptPopup from "./components/InstallPromptPopup/InstallPromptPopup";
 
 const App: React.FC = () => {
-
-  // useEffect(() => {
-  //   console.log(isInstalled)
-  //   const timeout = setTimeout(() => {
-  //     setShowInstall(false)
-  //   }, 5000)
-
-  //   return clearTimeout(timeout)
-  // }, [isInstalled])
   return (
     <div className="flex min-h-screen w-full overflow-y-auto bg-background-light">
       <Routes>
